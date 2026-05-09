@@ -56,11 +56,12 @@ func _physics_process(delta: float) -> void:
 		pass
 	
 	if Input.is_action_pressed("tilt"):
-		anim_tree.set("parameters/tilton/add_amount", lerpf(anim_tree.get("parameters/tilton/add_amount"), 1.0, .5))
 		plus_5 = true
 	else:
-		anim_tree.set("parameters/tilton/add_amount", lerpf(anim_tree.get("parameters/tilton/add_amount"), 0.0, .5))
 		plus_5 = false
+	
+
+
 	
 	if Input.is_action_just_pressed("buy"):
 		buy_action = not buy_action
@@ -101,6 +102,18 @@ func _physics_process(delta: float) -> void:
 			anim_tree.set("parameters/tilt/transition_request", "bhand_low")
 		else:
 			anim_tree.set("parameters/tilt/transition_request", "palm_low")
+			
+	if plus_5:
+		if price_action:
+			anim_tree.set("parameters/tilton/add_amount", lerpf(anim_tree.get("parameters/tilton/add_amount"), 1.0, .5))
+		else:
+			anim_tree.set("parameters/tilton/add_amount", lerpf(anim_tree.get("parameters/tilton/add_amount"), 0.0, .5))
+	else:
+		if not price_action:
+			anim_tree.set("parameters/tilton/add_amount", lerpf(anim_tree.get("parameters/tilton/add_amount"), 1.0, .5))
+		else:
+			anim_tree.set("parameters/tilton/add_amount", lerpf(anim_tree.get("parameters/tilton/add_amount"), 0.0, .5))
+			
 	
 	
 	move_and_slide()
