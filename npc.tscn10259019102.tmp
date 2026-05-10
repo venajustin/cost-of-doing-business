@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://it6ylwm3txsb"]
+
+[ext_resource type="PackedScene" uid="uid://cqc4lhskipevo" path="res://assets/npc.glb" id="1_ideak"]
+[ext_resource type="Script" uid="uid://bnseeydaoxutl" path="res://npc.gd" id="1_xxcha"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xxcha"]
+radius = 1.1582031
+height = 4.3624268
+
+[node name="Trader" type="CharacterBody3D" unique_id=1188339343 groups=["enemies"]]
+script = ExtResource("1_xxcha")
+
+[node name="npc" parent="." unique_id=509246153 instance=ExtResource("1_ideak")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -0.018797278, 0, -0.06441116)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=857291303]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 2.2940924, 0)
+shape = SubResource("CapsuleShape3D_xxcha")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1912424245 groups=["enemies"]]
+path_height_offset = 0.8
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

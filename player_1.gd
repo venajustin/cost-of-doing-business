@@ -9,6 +9,7 @@ const JUMP_VELOCITY = 4.5
 @onready var anim_tree:AnimationTree = $Camera3D/hand/AnimationTree
 @onready var anim_play:AnimationPlayer = $Camera3D/hand/AnimationPlayer
 
+var requested_num: int = -1
 var buy_action: bool = true
 var price_action: bool = true
 var ten_x: bool = false
@@ -36,27 +37,34 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_pressed("0"):
 		anim_tree.set("parameters/Fingers/transition_request", "fingers_0")
+		requested_num = 0
 		pass
 	elif Input.is_action_pressed("1"):
 		anim_tree.set("parameters/Fingers/transition_request", "fingers_1")
+		requested_num = 1
 		pass
 	elif Input.is_action_pressed("2"):
 		anim_tree.set("parameters/Fingers/transition_request", "fingers_2")
+		requested_num = 2
 		pass
 	elif Input.is_action_pressed("3"):
 		anim_tree.set("parameters/Fingers/transition_request", "fingers_3")
+		requested_num = 3
 		pass
 	elif Input.is_action_pressed("4"):
 		anim_tree.set("parameters/Fingers/transition_request", "fingers_4")
+		requested_num = 4
 		pass
 	elif Input.is_action_pressed("5"):
 		anim_tree.set("parameters/Fingers/transition_request", "fingers_5")
+		requested_num = 5
 		pass
 	else:
 		pass
 	
 	if Input.is_action_pressed("tilt"):
 		plus_5 = true
+		requested_num = requested_num + 5
 	else:
 		plus_5 = false
 	
@@ -114,6 +122,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			anim_tree.set("parameters/tilton/add_amount", lerpf(anim_tree.get("parameters/tilton/add_amount"), 0.0, .5))
 			
+	#if not price_action:
+		#anim_tree.set("parameters/TimeSeek/seek_request", 0)
+
 	
 	
 	move_and_slide()
